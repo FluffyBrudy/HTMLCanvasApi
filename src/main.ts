@@ -1,24 +1,37 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { Particle } from "./particle";
+import "./style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const canvas = document.querySelector("canvas")!;
+const ctx = canvas.getContext("2d")!;
+const mouse = { x: -1, y: -1 };
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setAttrs(canvas);
+window.onresize = () => setAttrs(canvas);
+window.addEventListener("click", (e) => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+  new Particle(mouse.x, mouse.y);
+});
+
+function main() {
+  animate();
+}
+
+main();
+
+function setAttrs(canvas: HTMLCanvasElement) {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function animate() {
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  Particle.getParticles().forEach((particle) => {
+    particle.update();
+    particle.draw(ctx);
+  });
+  requestAnimationFrame(animate);
+}
