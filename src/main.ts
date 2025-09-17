@@ -39,7 +39,9 @@ function setAttrs(canvas: HTMLCanvasElement) {
 
 function animate() {
   ctx.fillStyle = "#000000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  if (Math.random() < 0.5) {
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
   CircularPushedParticle.getParticles().forEach((particle) => {
     particle.update(canvas.width, canvas.height);
     particle.draw(ctx);
