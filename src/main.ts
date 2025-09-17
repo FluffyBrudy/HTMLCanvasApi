@@ -36,9 +36,8 @@ canvas.addEventListener("mousemove", (e) => {
 });
 
 function setAttrs(canvas: HTMLCanvasElement) {
-  const minDimension = Math.min(window.innerWidth, window.innerHeight);
-  canvas.width = minDimension;
-  canvas.height = minDimension;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
