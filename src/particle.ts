@@ -36,7 +36,7 @@ export class Particle {
   public update() {
     this.x += this.speed.x;
     this.y += this.speed.y;
-    this.size = Math.max(0, this.size - 0.1);
+    this.size = Math.max(0, this.size - 0.05);
   }
 
   public getSize() {
@@ -107,7 +107,7 @@ export class CircularPushedParticle {
       particle.update();
       if (particle.isOutOfBound(width, height)) {
         this.particleGroup.delete(particle);
-      } else if (particle.getSize() <= 1) this.particleGroup.delete(particle);
+      } else if (particle.getSize() <= 0.3) this.particleGroup.delete(particle);
     }
 
     CircularPushedParticle.particles = CircularPushedParticle.particles.filter(

@@ -1,5 +1,6 @@
 import { CircularPushedParticle, Particle } from "./particle";
 import "./style.css";
+import { randint } from "./utils";
 
 const canvas = document.querySelector("canvas")!;
 const ctx = canvas.getContext("2d")!;
@@ -11,7 +12,7 @@ window.onresize = () => setAttrs(canvas);
 canvas.addEventListener("click", (e) => {
   setLocalMousePos(e);
   new CircularPushedParticle(mouse.x, mouse.y, 3, { x: 5, y: 5 }, 1);
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     particleArray.add(
       new Particle({
         x: mouse.x,
@@ -24,11 +25,11 @@ canvas.addEventListener("mousemove", (e) => {
   setLocalMousePos(e);
   new CircularPushedParticle(mouse.x, mouse.y, 3, { x: 5, y: 5 }, 1);
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 5; i++) {
     particleArray.add(
       new Particle({
-        x: mouse.x,
-        y: mouse.y,
+        x: mouse.x + randint(1, 5),
+        y: mouse.y + randint(1, 5),
       })
     );
   }
@@ -60,7 +61,7 @@ function setLocalMousePos(e: MouseEvent | PointerEvent) {
 function animate() {
   Particle.hue = (Particle.hue + 2) % 360;
   console.log(Particle.hue);
-  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.02)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   CircularPushedParticle.getParticles().forEach((particle) => {
     particle.update(canvas.width, canvas.height);
